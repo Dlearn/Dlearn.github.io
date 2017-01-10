@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Blockly Demo: Generating JavaScript</title>
+    <script src="blockly/blockly_compressed.js"></script>
+    <script src="blockly/javascript_compressed.js"></script>
+    <script src="blockly/en.js"></script>
+
+    <script src="blocks/gakkoBlocks.js"></script>
+    <script src="blocks/gakkoGenerator.js"></script>
+
+
+    <script src="phaser/phaser.min.js"></script>
+    <style>
+        body {
+            background-color: #fff;
+            font-family: sans-serif;
+        }
+        h1 {
+            font-weight: normal;
+            font-size: 140%;
+        }
+    </style>
+</head>
+<body>
+<h1><a href="https://developers.google.com/blockly/">Blockly</a> &gt; Code Gakko First Prototype</h1>
+
+<p>Drag the desired blocks into the coding area, then execute Javascript. Then click on the arrow.</p>
+
+<p>
+    <button onclick="showCode()">Show JavaScript</button>
+    <button onclick="runCode()">Execute JavaScript</button>
+</p>
+
+<div id="blocklyDiv" style="height: 360px; width: 480px; float: left; margin-right: 10px; margin-bottom: 20px;"></div>
+<div id="jsDiv" style="height: 120px; width: 120px; float: left; margin-right: 10px; margin-bottom: 20px; white-space: pre;">Intepreted javascript goes here.</div>
+<div style ="clear: both;"><script src="js/game.js"></script></div>
+
+<xml id="toolbox" style="display: none">
+    <block type="jump"></block>
+    <block type="forward">
+        <field name="distance">50</field>
+    </block>
+    <block type="rotate">
+        <field name="degrees">45</field>
+    </block>
+</xml>
+
+<xml id="startBlocks" style="display: none">
+    <block type="arrow" x="13" y="13"></block>
+</xml>
+
+<script>
+    var workspace = Blockly.inject('blocklyDiv',
+        {media: 'media/',
+            toolbox: document.getElementById('toolbox')});
+    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
+        workspace);
+
+    /*function compileAndExecuteCode() {
+        // Generate JavaScript code and display it.
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        document.getElementById("jsDiv").innerHTML = code;
+
+        window.LoopTrap = 1000;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP =
+            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+        try {
+            eval(code);
+        } catch (e) {
+            alert(e);
+        }
+    }*/
+
+    function showCode() {
+        // Generate JavaScript code and display it.
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        document.getElementById("jsDiv").innerHTML = code;
+    }
+
+    function runCode() {
+        // Generate JavaScript code and run it.
+        window.LoopTrap = 1000;
+        Blockly.JavaScript.INFINITE_LOOP_TRAP =
+            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+        var code = Blockly.JavaScript.workspaceToCode(workspace);
+        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+        try {
+            eval(code);
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>
+
+</body>
+</html>
