@@ -31,8 +31,8 @@
 <p>Click on the arrow to start the animation.</p>
 
 <p>
-    <button onclick="showCode()">Show JavaScript</button>
-    <button onclick="runCode()">Execute JavaScript</button>
+    <button onclick="compileAndExecuteCode()" style = "font-size: 20px; padding: 5px 20px 5px 20px;">Execute!</button>
+    <!--button onclick="runCode()">Execute JavaScript</button-->
 </p>
 
 <div id="blocklyDiv" style="height: 360px; width: 480px; float: left; margin-right: 10px; margin-bottom: 20px;"></div>
@@ -86,7 +86,7 @@
     Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
         workspace);
 
-    /*function compileAndExecuteCode() {
+    function compileAndExecuteCode() {
         // Generate JavaScript code and display it.
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         var code = Blockly.JavaScript.workspaceToCode(workspace);
@@ -102,28 +102,28 @@
         } catch (e) {
             alert(e);
         }
-    }*/
-
-    function showCode() {
-        // Generate JavaScript code and display it.
-        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-        var code = Blockly.JavaScript.workspaceToCode(workspace);
-        document.getElementById("jsDiv").innerHTML = code;
     }
 
-    function runCode() {
-        // Generate JavaScript code and run it.
-        window.LoopTrap = 1000;
-        Blockly.JavaScript.INFINITE_LOOP_TRAP =
-            'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-        var code = Blockly.JavaScript.workspaceToCode(workspace);
-        Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-        try {
-            eval(code);
-        } catch (e) {
-            alert(e);
-        }
-    }
+    /*function showCode() {
+     // Generate JavaScript code and display it.
+     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+     var code = Blockly.JavaScript.workspaceToCode(workspace);
+     document.getElementById("jsDiv").innerHTML = code;
+     }
+
+     function runCode() {
+     // Generate JavaScript code and run it.
+     window.LoopTrap = 1000;
+     Blockly.JavaScript.INFINITE_LOOP_TRAP =
+     'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+     var code = Blockly.JavaScript.workspaceToCode(workspace);
+     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+     try {
+     eval(code);
+     } catch (e) {
+     alert(e);
+     }
+     }*/
 </script>
 
 </body>
