@@ -6,7 +6,7 @@ Blockly.Blocks['arrow'] = {
             .appendField("ARROW");
         this.appendStatementInput("STMTS")
             .setCheck(null);
-        //this.setMovable(false);
+        this.setMovable(false);
         this.setColour(210);
         this.setTooltip('ARROWTooltip');
         this.setHelpUrl('http://www.example.com/');

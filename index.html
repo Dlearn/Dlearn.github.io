@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Blockly Demo: Generating JavaScript</title>
     <script src="blockly/blockly_compressed.js"></script>
+    <script src="blockly/blocks_compressed.js"></script>
     <script src="blockly/javascript_compressed.js"></script>
     <script src="blockly/en.js"></script>
 
@@ -24,9 +25,10 @@
     </style>
 </head>
 <body>
-<h1><a href="https://developers.google.com/blockly/">Blockly</a> &gt; Code Gakko First Prototype</h1>
+<h1><a href="https://developers.google.com/blockly/">Blockly</a> &gt; Code Gakko Platform Prototype</h1>
 
-<p>Drag the desired blocks into the coding area, then execute Javascript. Then click on the arrow.</p>
+<p>Drag blocks into the coding area, then execute Javascript.</p>
+<p>Click on the arrow to start the animation.</p>
 
 <p>
     <button onclick="showCode()">Show JavaScript</button>
@@ -35,9 +37,17 @@
 
 <div id="blocklyDiv" style="height: 360px; width: 480px; float: left; margin-right: 10px; margin-bottom: 20px;"></div>
 <div id="jsDiv" style="height: 120px; width: 120px; float: left; margin-right: 10px; margin-bottom: 20px; white-space: pre;">Intepreted javascript goes here.</div>
-<div style ="clear: both;"><script src="js/game.js"></script></div>
+<div style ="clear: both;">
+    <script src="js/sprites.js"></script>
+    <script src="js/blocks.js"></script>
+    <script src="js/game.js"></script>
+</div>
 
 <xml id="toolbox" style="display: none">
+    <block type="controls_repeat_ext"></block>
+    <block type="math_number"></block>
+    <block type="text_print"></block>
+    <block type="text"></block>
     <block type="jump"></block>
     <block type="forward">
         <field name="distance">50</field>
@@ -48,7 +58,27 @@
 </xml>
 
 <xml id="startBlocks" style="display: none">
-    <block type="arrow" x="13" y="13"></block>
+    <block type="arrow" x="13" y="13">
+        <statement name="STMTS">
+            <block type="controls_repeat_ext">
+                <value name="TIMES">
+                    <block type="math_number">
+                        <field name="NUM">4</field>
+                    </block>
+                </value>
+                <statement name="DO">
+                    <block type="forward">
+                        <field name="distance">100</field>
+                        <next>
+                            <block type="rotate">
+                                <field name="degrees">90</field>
+                            </block>
+                        </next>
+                    </block>
+                </statement>
+            </block>
+        </statement>
+    </block>
 </xml>
 
 <script>

@@ -4,7 +4,6 @@ Blockly.JavaScript['arrow'] = function(block){
     obj = 'arrow';
     var code = 'var that = this;\n';
     var branch = Blockly.JavaScript.statementToCode(block, 'STMTS');
-    //console.log(branch);
     if (branch) {
         code += 'that.'+ obj +'.blocks = [];\n';
         code += branch;
@@ -20,18 +19,18 @@ Blockly.JavaScript['arrow'] = function(block){
 }
 
 Blockly.JavaScript['jump'] = function(block) {
-    var code = 'that.'+ obj +'.blocks.push({ block: BLOCKS.JUMP });\n';
+    var code = 'that.'+ obj +'.blocks.push({ block: "JUMP" });\n';
     return code;
 };
 
 Blockly.JavaScript['forward'] = function(block) {
     var distance = block.getFieldValue('distance');
-    var code = 'that.'+ obj +'.blocks.push({ block: BLOCKS.FORWARD, distance: ' + distance + ' });\n';
+    var code = 'that.'+ obj +'.blocks.push({ block: "FORWARD", arg: ' + distance + ' });\n';
     return code;
 };
 
 Blockly.JavaScript['rotate'] = function(block) {
     var degrees = block.getFieldValue('degrees');
-    var code = 'that.'+ obj +'.blocks.push({ block: BLOCKS.ROTATE, degrees: ' + degrees + ' });\n';
+    var code = 'that.'+ obj +'.blocks.push({ block: "ROTATE", arg: ' + degrees + ' });\n';
     return code;
 };
