@@ -10,7 +10,7 @@
 
     <script src="blocks/gakkoBlocks.js"></script>
     <script src="blocks/gakkoGenerator.js"></script>
-
+    <script src="blocks/gakkoUtil.js"></script>
 
     <script src="phaser/phaser.min.js"></script>
     <style>
@@ -32,10 +32,9 @@
 
 <p>
     <button onclick="compileAndExecuteCode()" style = "font-size: 20px; padding: 5px 20px 5px 20px;">Execute!</button>
-    <!--button onclick="runCode()">Execute JavaScript</button-->
 </p>
 
-<div id="blocklyDiv" style="height: 360px; width: 480px; float: left; margin-right: 10px; margin-bottom: 20px;"></div>
+<div id="blocklyDiv" style="height: 450px; width: 600px; float: left; margin-right: 10px; margin-bottom: 20px;"></div>
 <div id="jsDiv" style="height: 120px; width: 120px; float: left; margin-right: 10px; margin-bottom: 20px; white-space: pre;">Intepreted javascript goes here.</div>
 <div style ="clear: both;">
     <script src="js/sprites.js"></script>
@@ -44,8 +43,18 @@
 </div>
 
 <xml id="toolbox" style="display: none">
-    <block type="controls_repeat_ext"></block>
-    <block type="math_number"></block>
+    <block type="arrow">
+        <field name="EVENT">EVENT_CLICKSPRITE</field>
+    </block>
+
+    <block type="controls_repeat_ext">
+        <value name="TIMES">
+            <block type="math_number">
+                <field name="NUM">4</field>
+            </block>
+        </value>
+    </block>
+
     <block type="jump"></block>
     <block type="forward">
         <field name="distance">50</field>
@@ -57,6 +66,7 @@
 
 <xml id="startBlocks" style="display: none">
     <block type="arrow" x="13" y="13">
+        <field name="EVENT">EVENT_CLICKSPRITE</field>
         <statement name="STMTS">
             <block type="controls_repeat_ext">
                 <value name="TIMES">
@@ -90,40 +100,19 @@
         // Generate JavaScript code and display it.
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         var code = Blockly.JavaScript.workspaceToCode(workspace);
+        code = codeSetup(code);
         document.getElementById("jsDiv").innerHTML = code;
 
         window.LoopTrap = 1000;
         Blockly.JavaScript.INFINITE_LOOP_TRAP =
             'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-        var code = Blockly.JavaScript.workspaceToCode(workspace);
         Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
         try {
             eval(code);
         } catch (e) {
-            alert(e);
+            alert('CANNOT EXECUTE:\n'+e);
         }
     }
-
-    /*function showCode() {
-     // Generate JavaScript code and display it.
-     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-     var code = Blockly.JavaScript.workspaceToCode(workspace);
-     document.getElementById("jsDiv").innerHTML = code;
-     }
-
-     function runCode() {
-     // Generate JavaScript code and run it.
-     window.LoopTrap = 1000;
-     Blockly.JavaScript.INFINITE_LOOP_TRAP =
-     'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-     var code = Blockly.JavaScript.workspaceToCode(workspace);
-     Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-     try {
-     eval(code);
-     } catch (e) {
-     alert(e);
-     }
-     }*/
 </script>
 
 </body>

@@ -1,15 +1,17 @@
-// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#4gu9nf
+// gakkoBlocks.js
+// Defines codegakko's set of blocks
+// https://blockly-demo.appspot.com/static/demos/blockfactory/index.html#scmk37
+
+Blockly.BlockSvg.START_HAT = true;
 
 Blockly.Blocks['arrow'] = {
     init: function() {
         this.appendDummyInput()
-            .appendField("ARROW");
+            .appendField("ARROW")
+            .appendField(new Blockly.FieldDropdown([["Click","EVENT_CLICKSPRITE"], ["Start","EVENT_START"]]), "EVENT");
         this.appendStatementInput("STMTS")
             .setCheck(null);
-        this.setMovable(false);
         this.setColour(210);
-        this.setTooltip('ARROWTooltip');
-        this.setHelpUrl('http://www.example.com/');
     }
 };
 
